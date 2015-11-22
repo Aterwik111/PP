@@ -21,8 +21,11 @@
   <ItemGroup>
     <ClCompile Include="conio2.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="HelpModule.cpp" />
+    <ClCompile Include="Labirynth.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Module.cpp" />
     <ClCompile Include="DrawBuffer.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -32,8 +35,11 @@
     <ClInclude Include="conio2.h" />
     <ClInclude Include="defines.h" />
     <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="HelpModule.h" />
     <ClInclude Include="includes.h" />
+    <ClInclude Include="Labirynth.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="DrawBuffer.h" />
     <ClInclude Include="Renderer.h" />

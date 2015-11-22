@@ -18,8 +18,6 @@ int main()
 	System *system = new System();
 	system->setActive();
 	////////////////////////////////////////////////////////////////////////
-	system->helpMenu.ShowHelp();
-	////////////////////////////////////////////////////////////////////////
 	char a;
 	do {
 		a = 0;
@@ -28,7 +26,6 @@ int main()
 		}
 		GameLogic(a);
 		Renderer->RenderFrame();
-		Sleep(20);
 	} while (a != 'q');
 
 	return 0;

@@ -13,7 +13,7 @@ int Module::setActive() {
 	return ERR_QUEUE_FULL;
 }
 void Module::setInactive() {
-	onDesactivate();
+	onDeactivate();
 	if (number_in_queue != NOT_IN_QUEUE) {
 		Module::queue[number_in_queue] = NULL;
 	}
@@ -30,7 +30,7 @@ void Module::onActivate()
 {
 
 }
-void Module::onDesactivate()
+void Module::onDeactivate()
 {
 }
 Module::Module()

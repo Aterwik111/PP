@@ -2,7 +2,7 @@
 #include "HelpModule.h"
 
 void HelpModule::ShowHelp() {
-	db.z_order = 10;
+	db.z_order =  Z_INDEX_HELP;
 	bShown = true;
 	db.setBgColor(CYAN);
 	db.setTxtColor(YELLOW);

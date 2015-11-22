@@ -13,7 +13,7 @@ public:
 //	virtual void onInit() = 0;
 	virtual void onFrame(char a) = 0;
 	virtual void onActivate();
-	virtual void onDesactivate();
+	virtual void onDeactivate();
 	Module();
 	virtual ~Module();
 };

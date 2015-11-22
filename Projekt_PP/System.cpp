@@ -24,6 +24,8 @@ void System::onFrame(char a)
 
 System::System()
 {
+	currentLvl = 0;
+	main_menu.setActive();
 }
 
 

@@ -17,10 +17,10 @@ void FPSCounter::onFrame(char a) {
 	counter++;
 }
 void FPSCounter::onActivate() {
-	db.z_order = 15;
+	db.z_order = Z_INDEX_FPS_COUNTER;
 	db.setActive();
 }
-void FPSCounter::onDesactivate() {
+void FPSCounter::onDeactivate() {
 	db.setInactive();
 }
 FPSCounter::FPSCounter()

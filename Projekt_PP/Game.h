@@ -1,17 +1,18 @@
 #pragma once
 #include "Module.h"
+#include "Labirynth.h"
 #include "DrawBuffer.h"
-class FPSCounter :
+class Game :
 	public Module
-{	
-	DWORD tick1=0,tick2 = 0;
-	DrawBuffer db;
-	int counter=0;
+{
+	DrawBuffer db2D;
+	DrawBuffer db3D;
 public:
 	void onActivate();
 	void onDeactivate();
 	void onFrame(char a);
-	FPSCounter();
-	~FPSCounter();
+	Labirynth currLabirynth;
+	Game();
+	~Game();
 };
 
