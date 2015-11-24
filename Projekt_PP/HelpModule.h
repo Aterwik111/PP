@@ -10,7 +10,7 @@ public:
 	void ShowHelp();
 	void HideHelp();
 	void ToggleHelp();
-	void onFrame(char a);
+	void onFrame(key_buffer kb);
 	HelpModule();
 	~HelpModule();
 };

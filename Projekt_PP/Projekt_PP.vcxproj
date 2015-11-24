@@ -24,6 +24,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HelpModule.cpp" />
     <ClCompile Include="Labirynth.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Module.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="HelpModule.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="Labirynth.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="DrawBuffer.h" />

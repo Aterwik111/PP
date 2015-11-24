@@ -2,9 +2,23 @@
 #include "System.h"
 
 
-void System::onFrame(char a)
+void System::gotoLevel(Level * lvl,int param)
 {
-	switch(a)
+	helpMenu.HideHelp();
+	if (currentLvl != NULL) {
+		returnPoint = currentLvl;
+		currentLvl->onExit();
+	}
+	else {
+		returnPoint = &menuLvl;
+	}
+	currentLvl = lvl;
+	lvl->onEnter(param);
+}
+
+void System::onFrame(key_buffer kb)
+{
+	switch(kb.keys[0])
 	{
 	case 'h':
 		helpMenu.ToggleHelp();		
@@ -16,16 +30,14 @@ void System::onFrame(char a)
 		else {
 			fpsc.setActive();
 		}
-	case 'e':
-		//przejscie do edytora
 		break;
 	}
+	currentLvl->onFrame(kb);
 }
 
 System::System()
 {
-	currentLvl = 0;
-	main_menu.setActive();
+	gotoLevel(&menuLvl,0);
 }
 
 

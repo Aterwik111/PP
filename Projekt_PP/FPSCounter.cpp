@@ -1,7 +1,7 @@
 #include "defines.h"
 #include "FPSCounter.h"
 
-void FPSCounter::onFrame(char a) {
+void FPSCounter::onFrame(key_buffer kb) {
 	static char liczba[10];
 	db.clear();
 	tick2 = GetTickCount();

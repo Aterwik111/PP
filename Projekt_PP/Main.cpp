@@ -6,35 +6,41 @@
 using namespace std;
 
 CRenderer *Renderer;
-
+System *systemModule;
 
 void Initialise();
-void GameLogic(char a);
+void GameLogic(key_buffer kb);
 
 int main()
 {
 	Initialise();
 	////////////////////////////////////////////////////////////////////////
-	System *system = new System();
-	system->setActive();
+	systemModule = new System();
+	systemModule->setActive();
 	////////////////////////////////////////////////////////////////////////
-	char a;
+	char a =0;
+	key_buffer kb = kb = { 0,"" };
 	do {
-		a = 0;
-		if (kbhit()) {
-			a = _getch();//TODO kilka getchów jednoczesnie, pêtla
+		kb = { 0,"" };
+		while(kbhit()) {
+			if (kb.number_of_keys >= KEY_BUFFER_SIZE) {
+				break;
+			}
+			a = _getch();
+			kb.keys[kb.number_of_keys] = a;
+			kb.number_of_keys++;
 		}
-		GameLogic(a);
+		GameLogic(kb);
 		Renderer->RenderFrame();
 	} while (a != 'q');
 
 	return 0;
 }
 
-void GameLogic(char a) {
+void GameLogic(key_buffer kb) {
 	for (int i = 0; i < MAX_MODULES; i++) {
 		if (Module::queue[i] != NULL) {
-			Module::queue[i]->onFrame(a);
+			Module::queue[i]->onFrame(kb);
 		}
 	}
 }
@@ -50,6 +56,7 @@ void Initialise() {
 	if (!RESIZABLE_CONSOLE) {
 		SetWindowLong(hwndC, GWL_STYLE, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX);
 	}
+
 	SetConsoleScreenBufferSize(handle, coord);
 	SetConsoleWindowInfo(handle, TRUE, &windowSize);
 	ShowWindow(GetConsoleWindow(), SW_NORMAL);

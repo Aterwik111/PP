@@ -10,7 +10,7 @@ class FPSCounter :
 public:
 	void onActivate();
 	void onDeactivate();
-	void onFrame(char a);
+	void onFrame(key_buffer kb);
 	FPSCounter();
 	~FPSCounter();
 };

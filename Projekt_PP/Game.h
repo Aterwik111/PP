@@ -1,17 +1,22 @@
 #pragma once
-#include "Module.h"
+#include "Level.h"
 #include "Labirynth.h"
 #include "DrawBuffer.h"
 class Game :
-	public Module
+	public Level
 {
+	int gameState = 0;
 	DrawBuffer db2D;
 	DrawBuffer db3D;
+	Labirynth currentLab;
+	int posX, posY, direction;
 public:
-	void onActivate();
-	void onDeactivate();
-	void onFrame(char a);
-	Labirynth currLabirynth;
+	void onEnter(int param);
+	void Draw2dLab();
+	void onFrame(key_buffer kb);
+	bool loadFromFile(char *filename);
+	void startGame();
+	bool tryToMove(int kierunek);
 	Game();
 	~Game();
 };

@@ -29,7 +29,7 @@ void HelpModule::ToggleHelp() {
 		ShowHelp();
 	}
 }
-void HelpModule::onFrame(char a) {
+void HelpModule::onFrame(key_buffer kb) {
 	
 }
 HelpModule::HelpModule()

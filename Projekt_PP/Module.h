@@ -11,7 +11,7 @@ public:
 	void setInactive();
 	bool isActive();
 //	virtual void onInit() = 0;
-	virtual void onFrame(char a) = 0;
+	virtual void onFrame(key_buffer kb) = 0;
 	virtual void onActivate();
 	virtual void onDeactivate();
 	Module();

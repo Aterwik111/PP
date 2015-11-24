@@ -42,7 +42,9 @@ void DrawBuffer::setArea(rect r){
 	height = r.bottom - r.top + 1;
 	free(data);
 	data = (pixel*) malloc(sizeof(pixel)*(width)*(height));
-	memset(data, 0, width*height*sizeof(pixel));
+	for (int i = 0; i < width*height;i++) {
+		data[i] = { ' ',DEFAULT_TXT_COLOR,DEFAULT_BG_COLOR};
+	}
 }
 void DrawBuffer::writeString(char *str, int x, int y)
 {

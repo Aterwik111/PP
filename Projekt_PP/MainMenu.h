@@ -1,14 +1,14 @@
 #pragma once
-#include "Module.h"
+#include "Level.h"
 #include "DrawBuffer.h"
 class MainMenu :
-	public Module
+	public Level
 {
 	DrawBuffer db;
 public:
-	void onActivate();
-	void onDeactivate();
-	void onFrame(char a);
+	void onEnter(int param);
+	void onExit();
+	void onFrame(key_buffer kb);
 	MainMenu();
 	~MainMenu();
 };
