@@ -40,13 +40,15 @@ void DrawBuffer::setArea(rect r){
 	drawArea = r;
 	width = r.right - r.left +1;
 	height = r.bottom - r.top + 1;
-	free(data);
+	if (data != NULL) {
+		free(data);
+	}
 	data = (pixel*) malloc(sizeof(pixel)*(width)*(height));
 	for (int i = 0; i < width*height;i++) {
 		data[i] = { ' ',DEFAULT_TXT_COLOR,DEFAULT_BG_COLOR};
 	}
 }
-void DrawBuffer::writeString(char *str, int x, int y)
+void DrawBuffer::writeString(const char *str, int x, int y)
 {
 	while (*str != 0) {
 		this->at(x, y).ch = *str;
@@ -73,5 +75,6 @@ DrawBuffer::DrawBuffer()
 
 DrawBuffer::~DrawBuffer()
 {
+	DrawBuffer::setInactive();
 	free(data);
 }

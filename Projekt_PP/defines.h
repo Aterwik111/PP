@@ -19,10 +19,14 @@
 
 
 #define BLOCK_EMPTY 0
-#define BLOCK_WALL 1
+#define BLOCK_RED 1
+#define BLOCK_GREEN 2
+#define BLOCK_DARK 3
 
 #define Z_INDEX_FPS_COUNTER 15
+#define Z_INDEX_DIALOG 14
 #define Z_INDEX_HELP 10
+#define Z_INDEX_LAB_COUNTERS 4
 #define Z_INDEX_LAB_3D 3
 #define Z_INDEX_LAB_2D 2
 #define Z_INDEX_MAIN_MENU 0
@@ -30,6 +34,8 @@
 #define LVL_MENU 0
 #define LVL_GAME 1
 #define LVL_EDITOR 2
+
+#define TXT_FIELD_WIDTH (40)
 
 #define DEFAULT_TXT_COLOR BLACK
 #define DEFAULT_BG_COLOR WHITE

@@ -8,11 +8,14 @@
 class System :
 	public Module
 {
+	bool lvlChanged = false;
+	int param;
 	FPSCounter fpsc;
 	HelpModule helpMenu;
 	Level* currentLvl = NULL;
-	Level* returnPoint = NULL;
 public:
+	void dialog(const char *tresc);
+	bool textInputDialog(const char *komunikat, char *buffer);
 	MainMenu menuLvl;
 	Game gameLvl;
 	void gotoLevel(Level* lvl,int param);

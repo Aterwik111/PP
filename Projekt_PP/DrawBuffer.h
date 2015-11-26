@@ -10,7 +10,7 @@ public:
 	rect drawArea;
 	int z_order = 0;
 	int width, height;
-	pixel *data;
+	pixel *data = NULL;
 
 	pixel& at(int x,int y);
 	void clear();
@@ -21,7 +21,7 @@ public:
 
 	void paintFrom(DrawBuffer&);
 	void setArea(rect);
-	void writeString(char* str,int x,int y);
+	void writeString(const char* str,int x,int y);
 	bool setActive();
 	void setInactive();
 	DrawBuffer();

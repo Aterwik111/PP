@@ -8,6 +8,7 @@ void MainMenu::onEnter(int param)
 	
 	db.setArea({1,1,SCREEN_WIDTH,SCREEN_HEIGHT});
 	db.z_order = Z_INDEX_MAIN_MENU;
+	db.setBgColor(BLACK);
 	db.setTxtColor(YELLOW);
 	for (int i = db.width * 9; i < db.width * 10; i++) {
 		db.data[i].bgColor = LIGHTRED;
@@ -35,6 +36,9 @@ void MainMenu::onFrame(key_buffer kb)
 	switch (kb.keys[0]) {
 	case 'i':
 		systemModule->gotoLevel(&systemModule->gameLvl, 0);
+		break;
+	case 'o':
+		systemModule->gotoLevel(&systemModule->gameLvl, 1);
 		break;
 	}
 }
