@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "System.h"
 
+
+
 void Game::onEnter(int param) {
 	gameState = 0;
 	char path[TXT_FIELD_WIDTH];
@@ -16,7 +18,7 @@ void Game::onEnter(int param) {
 	}
 	else {
 		
-		if (systemModule->textInputDialog("Prosze podac sciezke do pliku z labiryntem do wczytwania", path)){
+		if (systemModule->textInputDialog("Prosze podac sciezke do pliku z labiryntem do wczytania", path)){
 			if (loadFromFile(path)) { //sprobuj wczytac plik
 				startGame();
 			}
@@ -57,16 +59,268 @@ void Game::Draw2dLab() {
 		}
 	}
 }
+void Game::fillWall(int number, bool empty,pixel px, DrawBuffer* db) {
+	int startX = 0, widthX = 0, heightY = 0;
+	double startY = 0;
+	switch (number) {
+	case 1://pierwsza sciana
+		startX = 5;
+		startY = 2.0;
+		widthX = 5;
+		heightY = 23;
+		break;
+	case 2://druga sciana
+		startX = 10;
+		startY = 4.5;
+		widthX = 4;
+		heightY = 18;
+		break;
+	case 3://trzecia sciana
+		startX = 14;
+		startY = 6.5;
+		widthX = 3;
+		heightY = 14;
+		break;
+	case 4://czwarta sciana
+		startX = 18;
+		startY = 8.5;
+		widthX = 3;
+		heightY =10;
+		break;
+	case 5://pi¹ta sciana
+		startX = 21;
+		startY = 10.0;
+		widthX = 2;
+		heightY = 7;
+		break;
+	case 6://szósta sciana
+		startX = 23;
+		startY = 11.0;
+		widthX = 1;
+		heightY = 5;
+		break;
+	case 7://siódma sciana
+		startX = 25;
+		startY = 12.0;
+		widthX = 1;
+		heightY = 3;
+		break;
+	}
+	for (int i = 0; i < widthX; i++) {
+		for (int j = 0; j < heightY; j++) {
+			db->at(startX - i, (int)(startY)+j + 1) = px;
+		}
+		if (!empty) {
+			startY -= 0.5;
+			heightY += 1;
+		}
+	}
+}
+void Game::drawTopEdge(int number, bool empty, DrawBuffer* db) {
+	int widthX;
+	int startX;
+	double startY;
+	char c = 0;
+	switch(number) {
+	case 1://pierwsza sciana
+		startX = 5;
+		startY = 2.0;
+		widthX = 5;
+		break;
+	case 2://druga sciana
+		startX = 10;
+		startY = 4.5;
+		widthX = 4;
+		break;
+	case 3://trzecia sciana
+		startX = 14;
+		startY = 6.5;
+		widthX = 3;
+		break;
+	case 4://czwarta sciana
+		startX = 18;
+		startY = 8.5;
+		widthX = 3;
+		break;
+	case 5://pi¹ta sciana
+		startX = 21;
+		startY = 10.0;
+		widthX = 2;
+		break;
+	case 6://szósta sciana
+		startX = 23;
+		startY = 11.0;
+		widthX = 1;
+		break;
+	case 7://siódma sciana
+		startX = 25;
+		startY = 12.0;
+		widthX = 1;
+		break;
+	default:
+		widthX = 0;
+		break;
+	}
+	for (int i = 0; i < widthX; i++) {
+		if (startY - (int)startY > 0.0) {//0.5
+			c = '_';
+		}
+		else {
+			c = '-';
+		}
+		db->at(startX, (int)startY).ch = c;
+		startX--;
+		if (!empty) {
+			startY -= 0.5;
+		}
+	}
+}
+void Game::drawBottomEdge(int number, bool empty, DrawBuffer* db) {
+	int widthX;
+	int startX;
+	double startY;
+	char c = 0;
+	switch (number) {
+	case 1://pierwsza sciana
+		startX = 5;
+		startY = 25.0;
+		widthX = 5;
+		break;
+	case 2://druga sciana
+		startX = 10;
+		startY = 22.5;
+		widthX = 4;
+		break;
+	case 3://trzecia sciana
+		startX = 14;
+		startY = 20.5;
+		widthX = 3;
+		break;
+	case 4://czwarta sciana
+		startX = 18;
+		startY = 18.5;
+		widthX = 3;
+		break;
+	case 5://pi¹ta sciana
+		startX = 21;
+		startY = 17.0;
+		widthX = 2;
+		break;
+	case 6://szósta sciana
+		startX = 23;
+		startY = 16.0;
+		widthX = 1;
+		break;
+	case 7://siódma sciana
+		startX = 25;
+		startY = 15.0;
+		widthX = 1;
+		break;
+	default:
+		widthX = 0;
+		break;
+	}
+	for (int i = 0; i < widthX; i++) {
+		if (startY - (int)startY > 0.0) {//0.5
+			c = '_';
+		}
+		else {
+			c = '-';
+		}
+		db->at(startX, (int)startY).ch = c;
+		startX--;
+		if (!empty) {
+			startY += 0.5;
+		}
+	}
+}
+void Game::drawEdge(int number,DrawBuffer *db) {
+	int startY=0, height=0, posX=0;
+	switch (number) {
+	case 0:
+		posX = 0;
+		startY = 0;
+		height = 28;
+	break;
+	case 1:
+		posX = 6;
+		startY = 3;
+		height = 22;
+		break;
+	case 2:
+		posX = 11;
+		startY = 5;
+		height = 18;
+		break;
+	case 3:
+		posX = 15;
+		startY = 7;
+		height = 14;
+		break;
+	case 4:
+		posX = 19;
+		startY = 9;
+		height = 10;
+		break;
+	case 5:
+		posX = 22;
+		startY = 11;
+		height = 6;
+		break;
+	case 6:
+		posX = 24;
+		startY = 12;
+		height = 4;
+		break;
+	case 7:
+		posX = 26;
+		startY = 13;
+		height = 2;
+		break;
+	}
+	for (int i = 0; i < height; i++) {
+		db->at(posX,startY+i).ch ='|';
+		db->at(posX, posY).txtColor = BLACK;
+		db->at(posX, startY + i).bgColor = RED;
+	}
+}
+void Game::Draw3dLab()
+{
+	db3D.clear();
+	db3D.setBgColor(WHITE);
+	db3D.setTxtColor(BLACK);
+	db3DP.clear();
+	db3DP.setBgColor(WHITE);
+	db3DP.setTxtColor(BLACK);
+	for (int i = 0; i <= 2; i++) {
+		fillWall(i, false, {'@',BLACK,DARKGRAY}, &db3D);
+		fillWall(i, false, { '#',LIGHTRED,LIGHTGRAY }, &db3DP);
+
+		drawTopEdge(i, false, &db3D);
+		drawBottomEdge(i, false, &db3D);
+		drawEdge(i, &db3D);
+
+		drawTopEdge(i, false, &db3DP);
+		drawBottomEdge(i, false, &db3DP);
+		drawEdge(i, &db3DP);
+	}
+    db3DP.flip();
+	db3D.paintFrom(db3DP);
+}
 void Game::startGame() {
 	gameState = 1;
 	posX = currentLab.spawnX;
 	posY = currentLab.spawnY;
 	direction = DIRECTION_DOWN;
 	db2D.setArea({SCREEN_WIDTH - this->currentLab.sizeX ,2,SCREEN_WIDTH-1,1 + this->currentLab.sizeX });
-	db2D.setActive();
+	db2D.setActive(Z_INDEX_LAB_2D);
+	db3D.setArea({ 10,4,63,31});
+	db3D.setActive(Z_INDEX_LAB_3D);
+	db3D.setBgColor(GREEN);
+	db3DP.setArea({ 27,0,53,27});
+	db3DP.setBgColor(LIGHTGREEN);
 	dbCounters.setArea({ 1,2,SCREEN_WIDTH - this->currentLab.sizeX-2,2});
-	dbCounters.z_order = Z_INDEX_LAB_COUNTERS;
-	dbCounters.setActive();
+	dbCounters.setActive(Z_INDEX_LAB_COUNTERS);
 	dbCounters.setBgColor(RED);
 	dbCounters.setTxtColor(YELLOW);
 	start_time = GetTickCount();
@@ -77,6 +331,7 @@ void Game::endGame() {
 	move_counter = 0;
 	start_time = GetTickCount();
 	db2D.setInactive();
+	db3D.setInactive();
 	dbCounters.setInactive();
 }
 void Game::onExit() {
@@ -128,6 +383,7 @@ void Game::onFrame(key_buffer kb) {
 			}
 		}
 		Draw2dLab();
+		Draw3dLab();
 		char tmp[10];
 		dbCounters.clear();
 		dbCounters.writeString("Ilosc wykonanych ruchow: ",1,0);

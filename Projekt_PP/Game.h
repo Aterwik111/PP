@@ -8,7 +8,7 @@ class Game :
 	int gameState = 0;
 	DrawBuffer db2D;
 	DrawBuffer dbCounters;
-	DrawBuffer db3D;
+	DrawBuffer db3D, db3DP;
 	Labirynth currentLab;
 	int posX, posY, direction;
 	int move_counter;
@@ -16,6 +16,11 @@ class Game :
 public:
 	void onEnter(int param);
 	void Draw2dLab();
+	void fillWall(int number, bool empty, pixel px, DrawBuffer * db);
+	void drawTopEdge(int number, bool empty, DrawBuffer* db);
+	void drawBottomEdge(int number, bool empty, DrawBuffer* db);
+	void drawEdge(int number,DrawBuffer* db);
+	void Draw3dLab();
 	void onFrame(key_buffer kb);
 	bool loadFromFile(const char *filename);
 	void startGame();

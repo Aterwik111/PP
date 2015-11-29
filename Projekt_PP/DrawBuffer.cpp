@@ -4,7 +4,7 @@
 
 
 
-bool DrawBuffer::setActive()
+bool DrawBuffer::setActive(int z_order)
 {
 	number_in_queue = Renderer->AddToQueue(this,z_order);
 	if(number_in_queue == ERR_QUEUE_FULL) {
@@ -63,6 +63,24 @@ void DrawBuffer::paintFrom(DrawBuffer& source){
 			this->at(source.drawArea.left + x, source.drawArea.top + y).ch = source.at(x, y).ch;
 			this->at(source.drawArea.left + x, source.drawArea.top + y).txtColor = source.at(x, y).txtColor;
 			this->at(source.drawArea.left + x, source.drawArea.top + y).bgColor = source.at(x, y).bgColor;
+		}
+	}
+}
+void DrawBuffer::fillRect(rect rc, pixel pi)
+{
+	for (int x = rc.left; x <= rc.right; x++) {
+		for (int y = rc.top; y <= rc.bottom; y++) {
+			this->at(x, y) = pi;
+		}
+	}
+}
+void::DrawBuffer::flip() {
+	pixel tmp;
+	for (int y = 0; y < height; y++) {
+		for (int x = 0; x < ((width +1) / 2); x++) {
+			tmp = at(x, y);
+			at(x, y) = at(width - x-1, y);
+			at(width - x-1, y) = tmp;
 		}
 	}
 }

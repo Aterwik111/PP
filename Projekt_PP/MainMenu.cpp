@@ -7,7 +7,6 @@ void MainMenu::onEnter(int param)
 {
 	
 	db.setArea({1,1,SCREEN_WIDTH,SCREEN_HEIGHT});
-	db.z_order = Z_INDEX_MAIN_MENU;
 	db.setBgColor(BLACK);
 	db.setTxtColor(YELLOW);
 	for (int i = db.width * 9; i < db.width * 10; i++) {
@@ -22,7 +21,7 @@ void MainMenu::onEnter(int param)
 	db.writeString("E - edytor poziomow", 2, 13);
 	db.writeString("H - wyswietlenie pomocy", 2, 14);
 	db.writeString("Q - wyjscie z programu", 2, 15);
-	db.setActive();
+	db.setActive(Z_INDEX_MAIN_MENU);
 	
 }
 

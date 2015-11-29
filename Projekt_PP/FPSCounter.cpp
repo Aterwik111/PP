@@ -17,8 +17,7 @@ void FPSCounter::onFrame(key_buffer kb) {
 	counter++;
 }
 void FPSCounter::onActivate() {
-	db.z_order = Z_INDEX_FPS_COUNTER;
-	db.setActive();
+	db.setActive(Z_INDEX_FPS_COUNTER);
 }
 void FPSCounter::onDeactivate() {
 	db.setInactive();

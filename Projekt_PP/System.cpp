@@ -6,8 +6,7 @@ void System::dialog(const char *tresc)
 {
 	DrawBuffer dialogBuffer;
 	dialogBuffer.setArea({1,1,SCREEN_WIDTH,SCREEN_HEIGHT});
-	dialogBuffer.z_order = Z_INDEX_DIALOG;
-	dialogBuffer.setActive();
+	dialogBuffer.setActive(Z_INDEX_DIALOG);
 	dialogBuffer.setBgColor(BLACK);
 	dialogBuffer.setTxtColor(LIGHTRED);
 	int len = 0;
@@ -24,8 +23,7 @@ bool System::textInputDialog(const char * komunikat,char* buffer)
 	DrawBuffer dialogBuffer;
 	char path[TXT_FIELD_WIDTH]="";
 	dialogBuffer.setArea({ 1,1,SCREEN_WIDTH,SCREEN_HEIGHT });
-	dialogBuffer.z_order = Z_INDEX_DIALOG;
-	dialogBuffer.setActive();
+	dialogBuffer.setActive(Z_INDEX_DIALOG);
 	dialogBuffer.setBgColor(GREEN);
 	dialogBuffer.setTxtColor(LIGHTRED);
 	int len = 0;

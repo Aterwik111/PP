@@ -8,7 +8,6 @@ private:
 	int number_in_queue;
 public:
 	rect drawArea;
-	int z_order = 0;
 	int width, height;
 	pixel *data = NULL;
 
@@ -20,11 +19,13 @@ public:
 	void setTxtColor(int color);
 
 	void paintFrom(DrawBuffer&);
+	void fillRect(rect, pixel);
 	void setArea(rect);
 	void writeString(const char* str,int x,int y);
-	bool setActive();
+	bool setActive(int z_order);
 	void setInactive();
 	DrawBuffer();
 	~DrawBuffer();
+	void flip();
 };
 

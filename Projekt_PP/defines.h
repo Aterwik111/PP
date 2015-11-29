@@ -31,24 +31,24 @@
 #define Z_INDEX_LAB_2D 2
 #define Z_INDEX_MAIN_MENU 0
 
-#define LVL_MENU 0
-#define LVL_GAME 1
-#define LVL_EDITOR 2
+#define WALL_TEMPLATES_AMOUNT (7)
+
+
 
 #define TXT_FIELD_WIDTH (40)
 
 #define DEFAULT_TXT_COLOR BLACK
-#define DEFAULT_BG_COLOR WHITE
+#define DEFAULT_BG_COLOR BLACK
 
 
 #define ERR_QUEUE_FULL (-1)
 #define NOT_IN_QUEUE (-1)
 
-
 struct key_buffer {
 	int number_of_keys;
 	char keys[KEY_BUFFER_SIZE];
 };
+
 struct rect{
 	int left, top, right, bottom;
 };

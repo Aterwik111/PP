@@ -2,11 +2,10 @@
 #include "HelpModule.h"
 
 void HelpModule::ShowHelp() {
-	db.z_order =  Z_INDEX_HELP;
 	bShown = true;
 	db.setBgColor(CYAN);
 	db.setTxtColor(YELLOW);
-	db.setActive();
+	db.setActive(Z_INDEX_HELP);
 	db.writeString("POMOC",db.width/2 -2,1);
 	db.writeString("Celem gry jest opuszczenie labiryntu...",1,3);
 	db.writeString("Obsluga programu:", 1, 5);
