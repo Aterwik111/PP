@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "System.h"
 
-
+pixel Game::block_types[BLOCK_TYPES_AMOUNT] = { {' ',BLACK,WHITE} ,{'@',BLACK,DARKGRAY}, {'#',LIGHTRED,LIGHTGRAY},{'X',BLACK,GREEN} };
 
 void Game::onEnter(int param) {
 	gameState = 0;
@@ -35,28 +35,7 @@ void Game::onEnter(int param) {
 void Game::Draw2dLab() {
 	db2D.setBgColor(WHITE);
 	for (int i = 0; i < db2D.width*db2D.height; i++) {
-		db2D.data[i].ch = ' ';
-		switch(currentLab.data[i]){
-		case BLOCK_RED:
-			db2D.data[i].bgColor = LIGHTGRAY;
-			db2D.data[i].txtColor = LIGHTRED;
-			db2D.data[i].ch = '#';
-		break;
-		case BLOCK_GREEN:
-			db2D.data[i].bgColor = LIGHTGREEN;
-			db2D.data[i].txtColor = DARKGRAY;
-			db2D.data[i].ch = '$';
-			break;
-		case BLOCK_DARK:
-			db2D.data[i].bgColor = DARKGRAY;
-			db2D.data[i].txtColor = BLACK;
-			db2D.data[i].ch = '@';
-			break;
-		case BLOCK_EMPTY:
-			db2D.data[i].bgColor = WHITE;
-			db2D.data[i].ch = ' ';
-			break;
-		}
+		db2D.data[i] = Game::block_types[currentLab.data[i]];
 	}
 }
 void Game::fillWall(int number, bool empty,pixel px, DrawBuffer* db) {
@@ -284,6 +263,105 @@ void Game::drawEdge(int number,DrawBuffer *db) {
 		db->at(posX, startY + i).bgColor = RED;
 	}
 }
+void Game::drawFrontWall(int number, int type) {
+	rect r = { 0,0,-1,-1};
+	char c = '-';
+	switch (number) {
+	case 0:
+		r = {1, 0, 52, 27};
+		break;
+	case 1:
+		r = { 7, 3, 46, 24 };
+		break;	
+	case 2:
+		r = { 12, 5, 41, 21 };
+		c = '_';
+		break;
+	case 3:
+		r = { 16, 7, 37, 19 };
+		c = '_';
+		break;
+	case 4:
+		r = { 20, 9, 33, 17 };
+		c = '_';
+		break;
+	case 5:
+		r = { 23, 11, 30, 16 };
+		break;
+	case 6:
+		r = { 25, 12, 28, 15 };
+		break;
+	}
+	if (number != 0) {
+		for (int i = r.left; i <= r.right; i++) {
+			db3D.at(i, r.top - 1).ch = c;
+			db3D.at(i, r.top - 1).bgColor = WHITE;
+			db3D.at(i, r.top - 1).txtColor = BLACK;
+
+			db3D.at(i, r.bottom + 1) = Game::block_types[type];
+			db3D.at(i, r.bottom + 1).ch = c;
+		}
+	}
+	db3D.fillRect(r, Game::block_types[type]);
+}
+void Game::getProjection(int &middleWallType, int &wall_number, int* leftWalls, int* rightWalls) {
+	int directionX = 0, directionY = 0;
+	int positionX, positionY;
+	int leftX=0, leftY=0;
+	positionX = this->posX;
+	positionY = this->posY;
+	int wall_num = 0;
+	switch (this->direction) {
+	case DIRECTION_LEFT:
+		directionX = -1;
+		leftY = 1;
+		break;
+	case DIRECTION_RIGHT:
+		directionX = 1;
+		leftY = -1;
+		break;
+	case DIRECTION_UP:
+		directionY = -1;
+		leftX = -1;
+		break;
+	case DIRECTION_DOWN:
+		directionY = 1;
+		leftX = 1;
+		break;
+	}
+	while (true) {
+		positionX += directionX;
+		positionY += directionY;
+		if (positionX >= 0 && positionX < currentLab.sizeX && positionY >= 0 && positionY < currentLab.sizeY) {
+			if (currentLab.at(positionX, positionY) == BLOCK_EMPTY) {
+				wall_num++;
+			}
+			else {
+				middleWallType = currentLab.at(positionX, positionY);
+				break;
+			}
+		}
+		else {
+			break;
+		}
+	}
+	if (wall_num > 7) { wall_num = 7; }
+	wall_number = wall_num;
+	positionX = this->posX;
+	positionY = this->posY;
+	for (int i = 0; i <= wall_num; i++) {
+		positionX += directionX;
+		positionY += directionY;
+		if (positionX >= 0 && positionX < currentLab.sizeX && positionY >= 0 && positionY < currentLab.sizeY) {
+			leftWalls[i] = currentLab.at(positionX + leftX, positionY + leftY);
+			rightWalls[i] = currentLab.at(positionX - leftX, positionY - leftY);
+		}
+		else {
+			leftWalls[i] = 0;
+			rightWalls[i] = 0;
+		}
+	}
+}
 void Game::Draw3dLab()
 {
 	db3D.clear();
@@ -292,20 +370,45 @@ void Game::Draw3dLab()
 	db3DP.clear();
 	db3DP.setBgColor(WHITE);
 	db3DP.setTxtColor(BLACK);
-	for (int i = 0; i <= 2; i++) {
-		fillWall(i, false, {'@',BLACK,DARKGRAY}, &db3D);
-		fillWall(i, false, { '#',LIGHTRED,LIGHTGRAY }, &db3DP);
 
-		drawTopEdge(i, false, &db3D);
-		drawBottomEdge(i, false, &db3D);
-		drawEdge(i, &db3D);
+	int wall_num = 0, middle_wall_type=0;
+	int leftWalls[8], rightWalls[8];
+	pixel tmpPx = {0,0,0};
+	getProjection(middle_wall_type,wall_num, leftWalls, rightWalls);
+	drawEdge(0, &db3D);
+	drawEdge(0, &db3DP);
+	for (int i = 0; i < wall_num; i++) {
+		if (leftWalls[i] == BLOCK_EMPTY){
+			if (leftWalls[i + 1]!=BLOCK_EMPTY){
+			fillWall(i + 1, true, Game::block_types[leftWalls[i + 1]], &db3D);
+			drawTopEdge(i + 1, true, &db3D);
+			drawBottomEdge(i + 1, true, &db3D);
+			}
+		}
+		else {
+			fillWall(i + 1, false, Game::block_types[leftWalls[i]], &db3D);
+			drawTopEdge(i+1, false, &db3D);
+			drawBottomEdge(i+1, false, &db3D);
+		}
+		drawEdge(i+1, &db3D);
 
-		drawTopEdge(i, false, &db3DP);
-		drawBottomEdge(i, false, &db3DP);
-		drawEdge(i, &db3DP);
+		if (rightWalls[i] == BLOCK_EMPTY) {
+			if (rightWalls[i + 1]!=BLOCK_EMPTY){
+			fillWall(i + 1, true, Game::block_types[rightWalls[i + 1]], &db3DP);
+			drawTopEdge(i + 1, true, &db3DP);
+			drawBottomEdge(i + 1, true, &db3DP);
+			}
+		}
+		else {
+			fillWall(i + 1, false, Game::block_types[rightWalls[i]], &db3DP);
+			drawTopEdge(i + 1, false, &db3DP);
+			drawBottomEdge(i + 1, false, &db3DP);
+		}
+		drawEdge(i + 1, &db3DP);
 	}
     db3DP.flip();
 	db3D.paintFrom(db3DP);
+	drawFrontWall(wall_num, middle_wall_type);
 }
 void Game::startGame() {
 	gameState = 1;

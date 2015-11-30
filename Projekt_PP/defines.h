@@ -23,6 +23,8 @@
 #define BLOCK_GREEN 2
 #define BLOCK_DARK 3
 
+#define BLOCK_TYPES_AMOUNT 4
+
 #define Z_INDEX_FPS_COUNTER 15
 #define Z_INDEX_DIALOG 14
 #define Z_INDEX_HELP 10
@@ -30,8 +32,6 @@
 #define Z_INDEX_LAB_3D 3
 #define Z_INDEX_LAB_2D 2
 #define Z_INDEX_MAIN_MENU 0
-
-#define WALL_TEMPLATES_AMOUNT (7)
 
 
 
