@@ -12,9 +12,9 @@ class System :
 	int param;
 	FPSCounter fpsc;
 	HelpModule helpMenu;
-	Level* currentLvl = NULL;
 public:
-	void dialog(const char *tresc);
+	Level* currentLvl = NULL;
+	char dialog(const char *tresc);
 	bool textInputDialog(const char *komunikat, char *buffer);
 	MainMenu menuLvl;
 	Game gameLvl;

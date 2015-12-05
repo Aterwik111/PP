@@ -18,9 +18,8 @@ void MainMenu::onEnter(int param)
 	db.writeString("MENU GLOWNE", 2, 9);
 	db.writeString("I - wczytanie domyslnego labiryntu", 2, 11);
 	db.writeString("O - wczytanie labiryntu z wybranego pliku", 2, 12);
-	db.writeString("E - edytor poziomow", 2, 13);
-	db.writeString("H - wyswietlenie pomocy", 2, 14);
-	db.writeString("Q - wyjscie z programu", 2, 15);
+	db.writeString("H - wyswietlenie pomocy", 2, 13);
+	db.writeString("Q - wyjscie z programu", 2, 14);
 	db.setActive(Z_INDEX_MAIN_MENU);
 	
 }

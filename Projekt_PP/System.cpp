@@ -2,7 +2,7 @@
 #include "System.h"
 #include "Renderer.h"
 
-void System::dialog(const char *tresc)
+char System::dialog(const char *tresc)
 {
 	DrawBuffer dialogBuffer;
 	dialogBuffer.setArea({1,1,SCREEN_WIDTH,SCREEN_HEIGHT});
@@ -15,7 +15,7 @@ void System::dialog(const char *tresc)
 	}
 	dialogBuffer.writeString(tresc,(SCREEN_WIDTH / 2) - ( len/2), 20);
 	Renderer->RenderFrame();
-	_getch();
+	return _getch();
 }
 
 bool System::textInputDialog(const char * komunikat,char* buffer)

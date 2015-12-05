@@ -10,7 +10,7 @@
 
 #define RESIZABLE_CONSOLE TRUE
 
-#define DEFAULT_LABIRYNTH_NAME "D://default.lab"
+#define DEFAULT_LABIRYNTH_NAME "default.lab"
 
 #define DIRECTION_UP 0
 #define DIRECTION_RIGHT 1
@@ -23,7 +23,7 @@
 #define BLOCK_GREEN 2
 #define BLOCK_DARK 3
 
-#define BLOCK_TYPES_AMOUNT 4
+#define BLOCK_TYPES_AMOUNT 6
 
 #define Z_INDEX_FPS_COUNTER 15
 #define Z_INDEX_DIALOG 14

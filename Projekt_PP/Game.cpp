@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "System.h"
 
-pixel Game::block_types[BLOCK_TYPES_AMOUNT] = { {' ',BLACK,WHITE} ,{'@',BLACK,DARKGRAY}, {'#',LIGHTRED,LIGHTGRAY},{'X',BLACK,GREEN} };
+pixel Game::block_types[BLOCK_TYPES_AMOUNT] = { {' ',BLACK,WHITE} ,{'@',BLACK,DARKGRAY}, {'#',LIGHTRED,LIGHTGRAY},{'X',BLACK,GREEN}, {'O',BLUE,LIGHTGREEN}, {'*',BLUE,MAGENTA} };
 
 void Game::onEnter(int param) {
 	gameState = 0;
@@ -16,8 +16,7 @@ void Game::onEnter(int param) {
 			systemModule->gotoLevel(&systemModule->menuLvl,0);
 		}
 	}
-	else {
-		
+	else {		
 		if (systemModule->textInputDialog("Prosze podac sciezke do pliku z labiryntem do wczytania", path)){
 			if (loadFromFile(path)) { //sprobuj wczytac plik
 				startGame();
@@ -480,6 +479,17 @@ void Game::onFrame(key_buffer kb) {
 				return;
 			}
 		}
+		if (posX == currentLab.finishX && posY == currentLab.finishY) { //dojscie do mety
+			char c = systemModule->dialog("Gratulacje! Udalo ci sie przejsc labirynt. Jesli chcesz zagrac od nowa nacisnij R.");
+			if (c == 'r') {
+				endGame();
+				startGame();
+			}
+			else {
+				systemModule->gotoLevel(&systemModule->menuLvl, 0);
+			}
+		}
+
 		for (int i = 0; i < db2D.width*db2D.height; i++) {
 			if (currentLab.data[i] == 1) {
 				db2D.data[i].bgColor = BLACK;
